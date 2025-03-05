@@ -1,0 +1,76 @@
+using System.Drawing.Printing;
+using System.Windows.Forms;
+
+namespace _27_02_25_derds
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnHesapla_Click(object sender, EventArgs e)
+        {
+            double toplamTutar = 0;
+            foreach(string item in lblDetay.Items)
+            {
+                string[] parcalr = item.Split("-");
+                string fiyatStr = parcalr[1].Trim() .Replace("₺", "");
+
+                double fiyat;
+                if (double.TryParse(fiyatStr, out fiyat))
+                {
+                    toplamTutar += fiyat;
+                }
+            }
+            if (rdoOgrenci.Checked)
+            {
+                toplamTutar *= 0.85; 
+            }
+            else if (rdoEmekli.Checked)
+            {
+                toplamTutar *= 0.90; 
+            }
+            txtTutar.Text = toplamTutar.ToString("C2"); 
+
+        }
+
+        private void btnEkle_Click(object sender, EventArgs e)
+        {
+            string urunAdi = txtAdi.Text;
+            string fiyatStr = txtFiyat.Text;
+            lblDetay.Items.Add($"{urunAdi} - {fiyatStr}");
+            
+            txtAdi.Clear();
+            txtFiyat.Clear();
+            txtAdi.Focus();
+
+
+        }
+
+        private void btnTemizle_Click(object sender, EventArgs e)
+        {
+            lblDetay.Items.Clear(); 
+            txtTutar.Clear();       
+            txtAdi.Clear();           
+            txtFiyat.Clear();             
+            txtAdi.Focus();
+        }
+    }
+}
